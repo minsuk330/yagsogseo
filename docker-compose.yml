@@ -1,7 +1,7 @@
 services:
   db:
     image: mysql:8.0
-    container_name: yagsogseo-db
+    container_name: my-db
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
@@ -28,22 +28,12 @@ services:
       SPRING_PROFILES_ACTIVE: prod
     networks:
       - internal
-
-  nginx:
-    image: nginx:alpine
-    container_name: yagsogseo-nginx
-    restart: always
-    ports:
-      - "80:80"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      - app
-    networks:
-      - internal
+      - nginx-proxy
 
 volumes:
   mysql-data:
 
 networks:
   internal:
+  nginx-proxy:
+    external: true

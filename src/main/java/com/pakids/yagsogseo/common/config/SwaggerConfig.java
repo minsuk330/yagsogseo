@@ -5,6 +5,8 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
+import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,6 +23,11 @@ public class SwaggerConfig {
                         .description("전자계약 서비스 API 문서")
                         .version("v1.0.0"))
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
+            .servers(List.of(
+                new Server().url("http://localhost:8080").description("local"),
+                new Server().url("http://85.113.70.112:8080").description("production")
+                )
+            )
                 .components(new Components()
                         .addSecuritySchemes(securitySchemeName, new SecurityScheme()
                                 .name(securitySchemeName)
