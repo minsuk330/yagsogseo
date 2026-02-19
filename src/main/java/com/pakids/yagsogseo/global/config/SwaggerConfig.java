@@ -1,4 +1,4 @@
-package com.pakids.yagsogseo.common.config;
+package com.pakids.yagsogseo.global.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -25,7 +25,7 @@ public class SwaggerConfig {
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
             .servers(List.of(
                 new Server().url("http://localhost:8080").description("local"),
-                new Server().url("http://85.113.70.112:8080").description("production")
+                new Server().url("http://85.113.70.112").description("production")
                 )
             )
                 .components(new Components()

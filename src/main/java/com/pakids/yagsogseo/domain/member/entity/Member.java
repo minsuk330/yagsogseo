@@ -1,11 +1,12 @@
 package com.pakids.yagsogseo.domain.member.entity;
 
-import com.pakids.yagsogseo.common.entity.BaseEntity;
+import com.pakids.yagsogseo.global.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "member")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 public class Member extends BaseEntity {
 
     @Column(nullable = false, unique = true)
@@ -26,6 +26,16 @@ public class Member extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
+
+    @Column
+    private String phoneNumber;
+
+    @Column
+    private LocalDate birthDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private Gender gender;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -39,10 +49,14 @@ public class Member extends BaseEntity {
     private String providerId;
 
     @Builder
-    private Member(String email, String password, String name, Role role, Provider provider, String providerId) {
+    private Member(String email, String password, String name, String phoneNumber,
+        LocalDate birthDate, Gender gender, Role role, Provider provider, String providerId) {
         this.email = email;
         this.password = password;
         this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.birthDate = birthDate;
+        this.gender = gender;
         this.role = role;
         this.provider = provider;
         this.providerId = providerId;
@@ -58,12 +72,16 @@ public class Member extends BaseEntity {
                 .build();
     }
 
-    public static Member createOAuth(String email, String name, Provider provider, String providerId) {
+    public static Member createToss(String email, String name, String phoneNumber,
+        LocalDate birthDate, Gender gender, String providerId) {
         return Member.builder()
                 .email(email)
                 .name(name)
+                .phoneNumber(phoneNumber)
+                .birthDate(birthDate)
+                .gender(gender)
                 .role(Role.ROLE_USER)
-                .provider(provider)
+                .provider(Provider.TOSS)
                 .providerId(providerId)
                 .build();
     }

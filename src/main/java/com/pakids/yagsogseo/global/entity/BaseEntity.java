@@ -1,4 +1,4 @@
-package com.pakids.yagsogseo.common.entity;
+package com.pakids.yagsogseo.global.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
